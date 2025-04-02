@@ -7,6 +7,7 @@ namespace Assi3
     {
         static void Main(string[] args)
         {
+            //Containers to hold servers/requests
             List<Server> Servers = new List<Server>();
             Queue<Request> PendingRequests = new Queue<Request>();
 
@@ -28,10 +29,12 @@ namespace Assi3
                         Console.WriteLine("server:[id]\t\tHave server #ID execute its pending request and print the result.");
                         Console.WriteLine("quit\t\t\tQuit the application");
                         break;
+                        //Creates and adds new server to the list
                     case "createserver":
                         Servers.Add(new Server());
                         Console.WriteLine($"Created server #{Servers.Count - 1}");
                         break;
+                        //Checks if a serverId exists and deletes it
                     case "deleteserver":
                         if (commandArgs.Length > 1 && int.TryParse(commandArgs[1], out int serverId) && serverId >= 0 && serverId < Servers.Count)
                         {
@@ -43,6 +46,7 @@ namespace Assi3
                             Console.WriteLine("Invalid server ID.");
                         }
                         break;
+                        //Lists out the servers and their availability 
                     case "listservers":
                         if (Servers.Count == 0)
                         {
@@ -60,6 +64,7 @@ namespace Assi3
                             }
                         }
                         break;
+                        //Create a new request with provided path and payload
                     case "new":
                         if (commandArgs.Length >= 3 && int.TryParse(commandArgs[2], out int payload))
                         {
@@ -72,6 +77,7 @@ namespace Assi3
                             Console.WriteLine("Invalid request format. Use new:[path]:[payload]");
                         }
                         break;
+                        //Check to see if server avilable, and if so, will dispatch request
                     case "dispatch":
                         if (PendingRequests.Count == 0)
                         {
@@ -105,6 +111,7 @@ namespace Assi3
                             }
                         }
                         break;
+                        //Assuming server exists, perform request on given server
                     case "server":
                         if (commandArgs.Length > 1 && int.TryParse(commandArgs[1], out int serverToProcess)
                            && serverToProcess >= 0 && serverToProcess < Servers.Count)
